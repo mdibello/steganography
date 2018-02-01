@@ -8,8 +8,8 @@ std::queue<bool> stringToBinary(std::string message);
 
 int main(int argc, char* argv[]) {
 
-    std::string inputImageFilename  = "pupper.jpg";
-    std::string outputImageFilename = "out.jpg";
+    std::string inputImageFilename  = "../img/pupper.jpg";
+    std::string outputImageFilename = "../out/out.jpg";
 
     sf::Image referenceImage;
     if (!referenceImage.loadFromFile(inputImageFilename))

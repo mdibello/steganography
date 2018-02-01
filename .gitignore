@@ -1,6 +1,6 @@
-*
+/*
+!src/*.cpp
+!img/
 !.gitignore
-!*.cpp
 !*.jpg
 !Makefile
-out.jpg
