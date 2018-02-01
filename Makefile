@@ -1,14 +1,20 @@
 CC=g++
 CCFLAGS=-Wall -g
-SFMLFLAGS=-lsfml-system -lsfml-graphics -lsfml-window
+SFMLFLAGS=-lsfml-graphics
 
-all: lsb
+all: lsb_encode lsb_decode
 
-lsb: lsb.o
-	g++ -Wall -g -o lsb lsb.o $(SFMLFLAGS)
+lsb_encode: lsb_encode.o
+	g++ -Wall -g -o lsb_encode lsb_encode.o $(SFMLFLAGS)
 
-lsb.o: lsb.cpp
-	g++ -Wall -g -c lsb.cpp -o lsb.o
+lsb_encode.o: lsb_encode.cpp
+	g++ -Wall -g -c lsb_encode.cpp -o lsb_encode.o
+
+lsb_decode: lsb_decode.o
+	g++ -Wall -g -o lsb_decode lsb_decode.o $(SFMLFLAGS)
+
+lsb_decode.o: lsb_decode.cpp
+	g++ -Wall -g -c lsb_decode.cpp -o lsb_decode.o
 
 clean:
-	rm *o lsb
+	rm *o lsb_encode lsb_decode
