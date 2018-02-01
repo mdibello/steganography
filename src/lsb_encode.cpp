@@ -1,3 +1,6 @@
+// Least-Significant Bit Steganography - Encoding
+// Matthew DiBello
+
 #include <iostream>
 #include <bitset>
 #include <queue>
