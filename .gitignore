@@ -1,6 +1,6 @@
 /*
 !src/*.cpp
-!img/
+!in/
 !.gitignore
 !*.png
 !Makefile
