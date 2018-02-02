@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
     else {
-        std::cout << "ERROR: Too few arguments." << std::endl;
+        std::cout << "ERROR: Incorrect number of arguments." << std::endl;
         std::cout << "Run this program with the format: ";
         std::cout << "./lsb_encode path/to/input.png path/to/msg.txt path/to/output.png";
         std::cout << std::endl;
