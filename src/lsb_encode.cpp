@@ -2,17 +2,38 @@
 // Matthew DiBello
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <bitset>
 #include <queue>
-#include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
 std::queue<bool> stringToBinary(std::string message);
 
 int main(int argc, char* argv[]) {
 
-    std::string inputImageFilename  = "../img/pupper.jpg";
-    std::string outputImageFilename = "../out/out.jpg";
+    std::string inputImageFilename;
+    std::string inputMessageFilename;
+    std::string outputImageFilename;
+
+    if (argc == 4) {
+        inputImageFilename   = argv[1];
+        inputMessageFilename = argv[2];
+        outputImageFilename  = argv[3];
+    }
+    else if (argv[1] == std::string("--help")) {
+        std::cout << "Run this program with the format: ";
+        std::cout << "./lsb_encode path/to/input.png path/to/msg.txt path/to/output.png";
+        std::cout << std::endl;
+        exit(1);
+    }
+    else {
+        std::cout << "ERROR: Too few arguments." << std::endl;
+        std::cout << "Run this program with the format: ";
+        std::cout << "./lsb_encode path/to/input.png path/to/msg.txt path/to/output.png";
+        std::cout << std::endl;
+        exit(-1);
+    }
 
     sf::Image referenceImage;
     if (!referenceImage.loadFromFile(inputImageFilename))
@@ -21,15 +42,16 @@ int main(int argc, char* argv[]) {
     sf::Vector2u referenceSize;
     referenceSize = referenceImage.getSize();
 
-    std::string message = "This is a secret message";
+    std::ifstream stream(inputMessageFilename);
+    std::stringstream messageBuffer;
+    messageBuffer << stream.rdbuf();
+    std::string message = messageBuffer.str();
     std::queue<bool> binaryMessage = stringToBinary(message);
 
     sf::Image newImage;
     newImage.create(referenceSize.x, referenceSize.y);
     sf::Color referencePixel;
     sf::Color newPixel;
-    unsigned char zeroMask = 254;
-    unsigned char oneMask  = 255;
 
     for (unsigned int y = 0; y < referenceSize.y; y++) {
         for (unsigned int x = 0; x < referenceSize.x; x++) {
@@ -38,13 +60,13 @@ int main(int argc, char* argv[]) {
 
             if (!binaryMessage.empty()) {
 
-                newPixel.r = referencePixel.r & binaryMessage.front();
+                newPixel.r = (referencePixel.r & 254) | binaryMessage.front();
                 binaryMessage.pop();
-                newPixel.g = referencePixel.g & binaryMessage.front();
+                newPixel.g = (referencePixel.g & 254) | binaryMessage.front();
                 binaryMessage.pop();
-                newPixel.b = referencePixel.b & binaryMessage.front();
+                newPixel.b = (referencePixel.b & 254) | binaryMessage.front();
                 binaryMessage.pop();
-                newPixel.a = referencePixel.a & binaryMessage.front();
+                newPixel.a = (referencePixel.a & 254) | binaryMessage.front();
                 binaryMessage.pop();
 
                 //unsigned int pixelInt = referencePixel.toInteger();
@@ -91,7 +113,7 @@ std::queue<bool> stringToBinary(std::string message) {
     }
 
     // put null character at end of message
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 8; i++) {
         bits.push(0);
     }
 
