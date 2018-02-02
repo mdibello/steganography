@@ -9,13 +9,13 @@ int main(int argc, char* argv[]) {
 
     std::string imageFilename;
 
-    if (argc == 2) {
-        imageFilename = argv[1];
-    }
-    else if (arg[1] == std::string("--help")) {
+    if (argv[1] == std::string("--help")) {
         std::cout << "Run this program with the format: ";
         std::cout << "./lsb_decode path/to/input.png" << std::endl;
         exit(1);
+    }
+    else if (argc == 2) {
+        imageFilename = argv[1];
     }
     else {
         std::cout << "ERROR: Incorrect number of arguments." << std::endl;
