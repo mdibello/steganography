@@ -2,5 +2,5 @@
 !src/*.cpp
 !img/
 !.gitignore
-!*.jpg
+!*.png
 !Makefile
