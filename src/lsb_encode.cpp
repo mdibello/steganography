@@ -68,13 +68,6 @@ int main(int argc, char* argv[]) {
                 binaryMessage.pop();
                 newPixel.a = (referencePixel.a & 254) | binaryMessage.front();
                 binaryMessage.pop();
-
-                //unsigned int pixelInt = referencePixel.toInteger();
-                //std::bitset<32> pixelBits(pixelInt);
-                //std::cout << pixelBits << std::endl;
-                //unsigned int newPixelInt = newPixel.toInteger();
-                //std::bitset<32> newPixelBits(newPixelInt);
-                //std::cout << newPixelBits << std::endl << std::endl;
             }
             else {
 
@@ -98,18 +91,14 @@ std::queue<bool> stringToBinary(std::string message) {
     std::queue<bool> bits;
 
     for (std::string::iterator it = message.begin(); it != message.end(); it++) {
-        //std::cout << *it;
         for (int i = 128; i > 0; i /= 2) {
             if (*it & i) {
                 bits.push(1);
-                //std::cout << " 1 ";
             }
             else {
                 bits.push(0);
-                //std::cout << " 0 ";
             }
         }
-        //std::cout << std::endl;
     }
 
     // put null character at end of message
